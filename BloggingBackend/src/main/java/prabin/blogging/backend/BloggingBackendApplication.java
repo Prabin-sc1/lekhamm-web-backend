@@ -8,7 +8,7 @@ public class BloggingBackendApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BloggingBackendApplication.class, args);
-		System.out.println("prabin");
 	}
 
 }
+
