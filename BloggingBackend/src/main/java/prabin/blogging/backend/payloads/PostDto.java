@@ -13,6 +13,8 @@ import prabin.blogging.backend.model.User;
 @NoArgsConstructor
 public class PostDto {
 
+	private Integer id;
+	
 	private String title;
 
 	private String content;
@@ -20,10 +22,9 @@ public class PostDto {
 	private String image;
 
 	private Date addedDate;
- 
+
 	private CategoryDto category;
 
 	private UserDto user;
 
-	
 }
