@@ -2,7 +2,6 @@ package prabin.blogging.backend.services;
 
 import java.util.List;
 
-import prabin.blogging.backend.model.Post;
 import prabin.blogging.backend.payloads.PostDto;
 
 public interface PostService {
@@ -20,7 +19,7 @@ public interface PostService {
 	PostDto getSinglePost(Integer id);
 
 	// get all
-	List<PostDto> getAllPost();
+	List<PostDto> getAllPost(Integer pageNumber, Integer pageSize);
 
 	// get all post by category
 	List<PostDto> getAllPostByCategory(Integer cid);

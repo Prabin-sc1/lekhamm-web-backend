@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
+import prabin.blogging.backend.config.AppConstants;
 import prabin.blogging.backend.payloads.ApiResponse;
 import prabin.blogging.backend.payloads.PostDto;
 import prabin.blogging.backend.services.PostService;
@@ -54,12 +57,32 @@ public class PostController {
 	}
 
 	// get all posts
+	/*
+	 * @GetMapping("/all-posts") public ResponseEntity<List<PostDto>> getAllPosts(
+	 * 
+	 * @RequestParam(value = "pageNumber", defaultValue = "1", required = false)
+	 * Integer pageNumber,
+	 * 
+	 * @RequestParam(value = "pageSize", defaultValue = "4", required = false)
+	 * Integer pageSize) {
+	 * 
+	 * List<PostDto> allPost = this.postService.getAllPost(pageNumber, pageSize);
+	 * return new ResponseEntity<List<PostDto>>(allPost, HttpStatus.OK); }
+	 */
+	
+	
+	
 	@GetMapping("/all-posts")
-	public ResponseEntity<List<PostDto>> getAllPosts() {
-		List<PostDto> allPost = this.postService.getAllPost();
+	public ResponseEntity<List<PostDto>> getAllPosts(
+			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = AppConstants.PAGE_SIZE, defaultValue = "2", required = false) Integer pageSize) {
+
+		List<PostDto> allPost = this.postService.getAllPost(pageNumber, pageSize);
 		return new ResponseEntity<List<PostDto>>(allPost, HttpStatus.OK);
 	}
 
+	
+	
 	// get single post by id
 	@GetMapping("/posts/{postId}")
 	public ResponseEntity<PostDto> getSinglePost(@PathVariable Integer postId) {

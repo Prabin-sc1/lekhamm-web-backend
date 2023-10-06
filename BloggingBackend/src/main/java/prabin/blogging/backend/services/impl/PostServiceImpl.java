@@ -2,11 +2,13 @@ package prabin.blogging.backend.services.impl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import prabin.blogging.backend.dao.CategoryRepo;
@@ -78,8 +80,9 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDto> getAllPost() {
-		List<Post> posts = this.postRepo.findAll();
+	public List<PostDto> getAllPost(Integer pageNumber, Integer pageSize) {
+		Pageable p = PageRequest.of(pageNumber, pageSize);
+		Page<Post> posts = this.postRepo.findAll(p);
 		List<PostDto> collect = posts.stream().map((post) -> this.modelMapper.map(post, PostDto.class))
 				.collect(Collectors.toList());
 		return collect;
